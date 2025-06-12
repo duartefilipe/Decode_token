@@ -1,4 +1,4 @@
-package com.token.token.service // Ajuste para o seu pacote
+package com.token.token.service
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -13,23 +13,16 @@ class TokenService {
 
     private val logger = LoggerFactory.getLogger(TokenService::class.java)
 
-    /**
-     * MÉTODO AJUSTADO PARA RETORNAR TUDO
-     */
     fun decodeToken(bearerToken: String): Map<String, Any> {
         logger.info("--- Iniciando processo de decodificação de token ---")
         val jwt = bearerToken.substringAfter("Bearer ").trim()
 
-        // A lógica agora é simplesmente extrair as claims e retorná-las
         val claims = getClaims(jwt)
         logger.info("Claims extraídas com sucesso. Retornando o mapa completo.")
 
         return claims
     }
 
-    /**
-     * Extrai as claims de um JWT decodificando o payload manualmente.
-     */
     private fun getClaims(jwt: String): Claims {
         val chunks = jwt.split(".")
         if (chunks.size < 2) {
