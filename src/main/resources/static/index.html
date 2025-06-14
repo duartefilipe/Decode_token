@@ -70,13 +70,13 @@
             let response;
 
             if (method === 'header') {
-                response = await fetch('http://localhost:8081/api/decode', {
+                response = await fetch('http://192.168.100.109:8081/api/decode', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
             } else if (method === 'query') {
-                response = await fetch(`http://localhost:8081/api/decode-param?token=Bearer ${encodeURIComponent(token)}`);
+                response = await fetch(`http://192.168.100.109:8081/api/decode-param?token=Bearer ${encodeURIComponent(token)}`);
             } else if (method === 'body') {
-                response = await fetch('http://localhost:8081/api/decode-body', {
+                response = await fetch('http://192.168.100.109:8081/api/decode-body', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
