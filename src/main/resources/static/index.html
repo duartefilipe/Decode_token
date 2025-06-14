@@ -60,23 +60,40 @@
 </div>
 
 <script>
+    let backendBaseUrl = '';
+
+    async function loadBackendUrl() {
+        try {
+            const response = await fetch('/config/backend-url');
+            const data = await response.json();
+            backendBaseUrl = data.url;
+        } catch (e) {
+            document.getElementById('output').textContent = 'Erro: não foi possível obter a URL do backend.';
+        }
+    }
+
     async function decodeToken() {
         const token = document.getElementById('token').value.trim();
         const method = document.getElementById('method').value;
         const output = document.getElementById('output');
         output.textContent = 'Decodificando...';
 
+        if (!backendBaseUrl) {
+            output.textContent = 'Erro: URL do backend não carregada.';
+            return;
+        }
+
         try {
             let response;
 
             if (method === 'header') {
-                response = await fetch('http://192.168.100.109:8081/api/decode', {
+                response = await fetch(`${backendBaseUrl}/api/decode`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
             } else if (method === 'query') {
-                response = await fetch(`http://192.168.100.109:8081/api/decode-param?token=Bearer ${encodeURIComponent(token)}`);
+                response = await fetch(`${backendBaseUrl}/api/decode-param?token=Bearer ${encodeURIComponent(token)}`);
             } else if (method === 'body') {
-                response = await fetch('http://192.168.100.109:8081/api/decode-body', {
+                response = await fetch(`${backendBaseUrl}/api/decode-body`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -95,6 +112,9 @@
             output.textContent = `Erro: ${error.message}`;
         }
     }
+
+    // carregar backend ao abrir a página
+    window.onload = loadBackendUrl;
 </script>
 
 </body>
