@@ -1,5 +1,6 @@
-com\token\token\controller\TokenController.class
-com\token\token\service\TokenService$1.class
-com\token\token\TokenApplication.class
-com\token\token\dto\DecodedTokenResponse.class
-com\token\token\service\TokenService.class
+com/token/token/TokenApplication.class
+com/token/token/controller/TokenController$TokenRequest.class
+com/token/token/dto/DecodedTokenResponse.class
+com/token/token/controller/TokenController.class
+com/token/token/service/TokenService$1.class
+com/token/token/service/TokenService.class
